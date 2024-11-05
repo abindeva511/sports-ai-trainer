@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pose Detection Results</title>
+    <style>
+        .frame-analysis-pair {
+            margin-bottom: 20px;
+        }
+        .frame-pair {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .frame-pair img {
+            width: 300px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+        .analysis-item {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pose Detection Results for {{ filename }}</h1>
+    
+    {% if combined %}
+        <h2>Saved Frames and Analysis:</h2>
+        <div>
+            {% for paths, item in combined %}
+                <div class="frame-analysis-pair">
+                    <div class="frame-pair">
+                        {% for path in paths %}
+                            <img src="{{ url_for('static', filename=path) }}" alt="Saved Frame">
+                        {% endfor %}
+                    </div>
+                    <div class="analysis-item">
+                        <p>{{ item }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No frames or analysis results available.</p>
+    {% endif %}
+    
+    <a href="/">Upload another video</a>
+</body>
+</html>
