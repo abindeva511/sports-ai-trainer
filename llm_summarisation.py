@@ -17,7 +17,7 @@ def summarize_results_with_llm(results, relevant_chunks_from_embeddings1, questi
     input_text += f"\nTechniques of shot put throw is here : 't': {relevant_chunks_from_embeddings1}\n"
 
     # Call OpenAI API to summarize
-    openai.api_key = '''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'''  # Add your OpenAI API key here
+    openai.api_key = '''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'''  # Add your OpenAI API key here
     client = openai.OpenAI(api_key=openai.api_key)
     chat_completion = client.chat.completions.create(
         messages=[
@@ -61,7 +61,7 @@ def overall_summarize_results_with_llm(results, question):
 
 
     # Call OpenAI API to summarize
-    openai.api_key = '''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'''  # Add your OpenAI API key here
+    openai.api_key = '''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'''  # Add your OpenAI API key here
     client = openai.OpenAI(api_key=openai.api_key)
     chat_completion = client.chat.completions.create(
         messages=[
