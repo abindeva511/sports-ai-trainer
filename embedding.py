@@ -11,7 +11,7 @@ def summarize_results_with_llm(results):
     input_text += f"\nSecond Player Body position coordinates of shot put at a time frame 't': {results['b']}\n"
 
     # Call OpenAI API to summarize
-    openai.api_key = '''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'''  # Add your OpenAI API key here
+    openai.api_key = '''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'''  # Add your OpenAI API key here
     client = openai.OpenAI(api_key=openai.api_key)
     chat_completion = client.chat.completions.create(
         messages=[
