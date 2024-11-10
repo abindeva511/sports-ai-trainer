@@ -13,11 +13,11 @@ import numpy as np
 from llm_summarisation import instance_to_instance, overall_summarize_results_with_llm
 
 import pickle
-from sentence_transformers import SentenceTransformer
+# from sentence_transformers import SentenceTransformer
 from testing import save_and_render_frames
 
 # Load the embedding model
-embedding_model = SentenceTransformer('paraphrase-MiniLM-L6-v2', device='cpu', trust_remote_code=True)
+# embedding_model = SentenceTransformer('paraphrase-MiniLM-L6-v2', device='cpu', trust_remote_code=True)
 
 # Set upload folder
 UPLOAD_FOLDER = 'uploads'
@@ -67,16 +67,16 @@ if uploaded_file is not None:
     chunks_technique = chunk_text(external_source)
     chunks_input = chunk_text(contextualisation[0]['summary'])
     
-    # Step 8: Embedding
-    embeddings_technique = embedding_model.encode(chunks_technique)
-    embeddings_input = embedding_model.encode(chunks_input)
+    # # Step 8: Embedding
+    # embeddings_technique = embedding_model.encode(chunks_technique)
+    # embeddings_input = embedding_model.encode(chunks_input)
     
-    # Step 9: Find similar chunks
-    similar_chunks = find_similar_chunks(embeddings_technique, embeddings_input, threshold=0.8)
-    relevant_chunks_from_embeddings1 = get_relevant_chunks(chunks_technique, similar_chunks)
+    # # Step 9: Find similar chunks
+    # similar_chunks = find_similar_chunks(embeddings_technique, embeddings_input, threshold=0.8)
+    # relevant_chunks_from_embeddings1 = get_relevant_chunks(chunks_technique, similar_chunks)
     
     # Step 10: Instance-to-instance analysis
-    instance_to_instance_analysis = instance_to_instance(results, df, relevant_chunks_from_embeddings1, question)
+    instance_to_instance_analysis = instance_to_instance(results, df, question)
     
     # Step 11: Convert to a single string
     result_str = single_string(instance_to_instance_analysis)

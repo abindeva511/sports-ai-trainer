@@ -28,7 +28,7 @@ else:
 # Initialize the Llama API
 llama = LlamaAPI(api_key)
 
-def summarize_results_with_llm(results, relevant_chunks_from_embeddings1, question):
+def summarize_results_with_llm(results, question):
     resul = []
     # Load environment variables from .env file
 
@@ -41,7 +41,7 @@ def summarize_results_with_llm(results, relevant_chunks_from_embeddings1, questi
     input_text = ""
     input_text += f"\nFirst thrower Body position coordinates of shot put at a time frame 't': {results['a']}\n"
     input_text += f"\nSecond thrower Body position coordinates of shot put at a time frame 't': {results['b']}\n"
-    input_text += f"\nTechniques of shot put throw is here : 't': {relevant_chunks_from_embeddings1}\n"
+    input_text += f"\nTechniques of shot put throw is here : 't': \n"
     
     # Build the API request for Llama
     api_request_json = {
@@ -71,7 +71,7 @@ def summarize_results_with_llm(results, relevant_chunks_from_embeddings1, questi
 
     return resul
 
-def instance_to_instance(results, df, relevant_chunks_from_embeddings1, question):
+def instance_to_instance(results, df, question):
     instance_to_instance_analysis = {}
     # Load environment variables from .env file
     api_key = st.secrets["API_KEY"]
@@ -80,7 +80,7 @@ def instance_to_instance(results, df, relevant_chunks_from_embeddings1, question
     # Initialize the Llama API
     llama = LlamaAPI(api_key)
     for i in range(len(df)):
-        instance_to_instance_analysis[f"time_frame_{i}"] = summarize_results_with_llm(results, relevant_chunks_from_embeddings1, question)
+        instance_to_instance_analysis[f"time_frame_{i}"] = summarize_results_with_llm(results, question)
         time.sleep(1)  # Adding a delay to avoid rate limiting
     return instance_to_instance_analysis
 
