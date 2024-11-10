@@ -1,3 +1,8 @@
+import warnings
+warnings.filterwarnings("ignore", message="Examining the path of torch.classes")
+
+
+
 import streamlit as st
 from utils import pose_detection, filtering, dtw_mapping_and_distances, named_positions_at_timeframes, single_string, save_nth_frame
 import os
