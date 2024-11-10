@@ -7,7 +7,3 @@ cvzone
 fastdtw
 openai
 llamaapi
-torch>=2.0.0
-sentence-transformers==2.2.2
-huggingface_hub==0.8.1
-tokenizers==0.10.3
