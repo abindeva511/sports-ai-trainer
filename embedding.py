@@ -4,7 +4,6 @@ import requests
 from scipy.spatial.distance import cosine 
 from llamaapi import LlamaAPI
 import streamlit as st
-from dotenv import load_dotenv
 import os
 
 
