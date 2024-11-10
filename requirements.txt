@@ -7,3 +7,4 @@ pandas
 cvzone
 fastdtw
 openai
+llamaapi
