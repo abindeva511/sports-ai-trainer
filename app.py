@@ -3,7 +3,10 @@ from utils import pose_detection, filtering, dtw_mapping_and_distances, named_po
 import os
 from embedding import summarize_results_with_llm, external_source_info, chunk_text, find_similar_chunks, get_relevant_chunks
 import numpy as np
-from llm_summarisation import instance_to_intstance, overall_summarize_results_with_llm
+
+
+from llm_summarisation import instance_to_instance, overall_summarize_results_with_llm
+
 import pickle
 from sentence_transformers import SentenceTransformer
 from testing import save_and_render_frames
@@ -68,7 +71,7 @@ if uploaded_file is not None:
     relevant_chunks_from_embeddings1 = get_relevant_chunks(chunks_technique, similar_chunks)
     
     # Step 10: Instance-to-instance analysis
-    instance_to_instance_analysis = instance_to_intstance(results, df, relevant_chunks_from_embeddings1, question)
+    instance_to_instance_analysis = instance_to_instance(results, df, relevant_chunks_from_embeddings1, question)
     
     # Step 11: Convert to a single string
     result_str = single_string(instance_to_instance_analysis)

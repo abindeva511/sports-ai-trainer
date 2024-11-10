@@ -1,32 +1,57 @@
 # Function to summarize results using OpenAI's GPT API
 import openai
 import requests
-from scipy.spatial.distance import cosine
+from scipy.spatial.distance import cosine 
+from llamaapi import LlamaAPI
+import streamlit as st
+from dotenv import load_dotenv
+import os
+
+
+
+# Access the variables
+api_key = st.secrets["API_KEY"]
+
 def summarize_results_with_llm(results):
     resul = []
+    
     # Prepare the text to be summarized
 
+    # Initialize the Llama API with your API key
+    llama = LlamaAPI(api_key)
+
+    # Prepare input text with player coordinates
     input_text = ""
     input_text += f"\nFirst Player Body position coordinates of shot put at a time frame 't': {results['a']}\n"
     input_text += f"\nSecond Player Body position coordinates of shot put at a time frame 't': {results['b']}\n"
 
-    # Call OpenAI API to summarize
-    openai.api_key = '''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'''  # Add your OpenAI API key here
-    client = openai.OpenAI(api_key=openai.api_key)
-    chat_completion = client.chat.completions.create(
-        messages=[
-            {"role": "user", "content": f"The input text has 2 person body coordinates while throwing. Dont commpare them. Extract the information on their head position, hip position, knee position , elbow, hand , etc. "\
-             "give a detailed descirption on their position based on the shot put throw. Mine on how shot put is thrown .Dont give the coordinates. Just the summarisation is enough. \n\n{input_text}."\
-                    "You can give the output like head is facing to this or that side. Rigght hip is raised, upper body is bent etc. Exapnd the summary like thise for the various parts. Give me atleast 500 words for this. It  "\
-                        "Values look like this First Player Body posiiton coordiantes of shot put at a time frame 't':   eg:     34 Head_x coordinate   281 Head_y coordinate              185 Left Shoulder_x coordinate     275"\
-                        "feel free to say any suggestions even if its wrong. Just give the suggestions"}
+    # Build the API request for Llama
+    api_request_json = {
+        "model": "llama3.1-70b",  # Specify the Llama model version
+        "messages": [
+            {
+                "role": "user",
+                "content": (
+                    "The input text has 2 person body coordinates while throwing. Don't compare them. Extract the information on their head position, "
+                    "hip position, knee position, elbow, hand, etc. Give a detailed description of their position based on the shot put throw. "
+                    "Mine on how shot put is thrown. Don't give the coordinates. Just a summarization is enough.\n\n"
+                    f"{input_text}.\n"
+                    "You can give the output like 'head is facing this or that side', 'right hip is raised', 'upper body is bent', etc. "
+                    "Expand the summary for various body parts. Give me at least 500 words for this. Values look like this for the "
+                    "first player's body position coordinates of shot put at a time frame 't': e.g., 34 Head_x coordinate, 281 Head_y coordinate, "
+                    "185 Left Shoulder_x coordinate, 275. Feel free to make any suggestions even if they're wrong; just provide suggestions."
+                )
+            }
         ],
-        model="gpt-3.5-turbo",  # Or use "gpt-4" if available
-    )
+        "stream": False  # Set to True if you want streaming
+    }
 
+    # Execute the request
+    response = llama.run(api_request_json)
 
-    resul.append({'summary':chat_completion.choices[0].message.content   })
-    # Extract and return the summary (Accessing the text via .choices[0].message.content)
+    # Extract and append the summary to the results list
+    summary = response.json()['choices'][0]['message']['content']
+    resul.append({'summary': summary})
 
     return resul
 
