@@ -17,7 +17,7 @@ from sentence_transformers import SentenceTransformer
 from testing import save_and_render_frames
 
 # Load the embedding model
-embedding_model = SentenceTransformer('all-mpnet-base-v2', device='cpu', trust_remote_code=True)
+embedding_model = SentenceTransformer('paraphrase-MiniLM-L6-v2', device='cpu', trust_remote_code=True)
 
 # Set upload folder
 UPLOAD_FOLDER = 'uploads'
