@@ -11,18 +11,18 @@ import textwrap
 from llamaapi import LlamaAPI
 import streamlit as st
 import os
-import logging
+# import logging
 
 # Access the variable from Streamlit secrets
 api_key = st.secrets["API_KEY"]
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-# Log only part of the API key for security
-if api_key:
-    masked_key = f"{api_key[:4]}...{api_key[-4:]}"
-    logger.info(f"API Key loaded: {masked_key}")
-else:
-    logger.warning("API Key not found.")
+# logging.basicConfig(level=logging.INFO)
+# logger = logging.getLogger(__name__)
+# # Log only part of the API key for security
+# if api_key:
+#     masked_key = f"{api_key[:4]}...{api_key[-4:]}"
+#     logger.info(f"API Key loaded: {masked_key}")
+# else:
+#     logger.warning("API Key not found.")
 
 
 # Initialize the Llama API
